@@ -8,7 +8,7 @@ export const fetchPromotions = createAsyncThunk<Promotion[], void, { state: Root
   async (category, thunkAPI) => {
     const page = thunkAPI.getState().promotions.pagePromotions;
 
-    const promotionsResponse = await axiosApi.get<Promotion[]>('/promotions/?limit=' + 10 + '&page=' + page);
+    const promotionsResponse = await axiosApi.get<Promotion[]>('/api/promotions/?limit=' + 10 + '&page=' + page);
 
     return promotionsResponse.data;
   },

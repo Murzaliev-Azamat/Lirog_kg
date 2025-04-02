@@ -12,7 +12,7 @@ const companiesRouter = express.Router();
 
 export default companiesRouter;
 
-companiesRouter.get("/", async (req, res, next) => {
+companiesRouter.get("/api/", async (req, res, next) => {
   const limit = req.query.limit as string;
   const page = req.query.page as string;
 
