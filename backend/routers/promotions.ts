@@ -10,7 +10,7 @@ const promotionsRouter = express.Router();
 
 export default promotionsRouter;
 
-promotionsRouter.get("/", async (req, res, next) => {
+promotionsRouter.get("/api/", async (req, res, next) => {
   const limit = req.query.limit as string;
   const page = req.query.page as string;
 
