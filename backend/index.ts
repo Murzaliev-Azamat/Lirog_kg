@@ -18,7 +18,8 @@ dotenv.config();
 const app = express();
 
 app.use(cors());
-app.use(express.static("public"));
+// app.use(express.static("public"));
+app.use("/api", express.static("public"));
 app.use(express.json());
 app.use("/api/artists", artistsRouter);
 app.use("/api/albums", albumsRouter);
