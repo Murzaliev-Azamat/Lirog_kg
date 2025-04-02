@@ -26,8 +26,8 @@ app.use("/tracks", tracksRouter);
 app.use("/users", usersRouter);
 app.use("/track_history", tracksHistoryRouter);
 app.use("/categories", categoriesRouter);
-app.use("/promotions", promotionsRouter);
-app.use("/companies", companiesRouter);
+app.use("api/promotions", promotionsRouter);
+app.use("/api/companies", companiesRouter);
 
 const run = async () => {
   mongoose.set("strictQuery", false);
