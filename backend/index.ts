@@ -19,7 +19,7 @@ const app = express();
 
 app.use(cors());
 // app.use(express.static("public"));
-app.use("/api", express.static("public"));
+app.use("/api/images", express.static("public/images"));
 app.use(express.json());
 app.use("/api/artists", artistsRouter);
 app.use("/api/albums", albumsRouter);
