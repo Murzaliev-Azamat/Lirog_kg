@@ -241,7 +241,7 @@ const CardForPromotion: React.FC<Props> = ({
           <div style={{ borderRight: '1px solid #E0E0E0FF' }}>
             <a href={companyLink} target="_blank" rel="noreferrer">
               <img
-                src={company_image ? apiUrl + company_image : '/mobile_banner.png'}
+                src={company_image ? apiUrl + '/' + company_image : '/mobile_banner.png'}
                 alt="image"
                 style={{
                   width: '112px',
