@@ -20,13 +20,13 @@ const app = express();
 app.use(cors());
 app.use(express.static("public"));
 app.use(express.json());
-app.use("/artists", artistsRouter);
-app.use("/albums", albumsRouter);
-app.use("/tracks", tracksRouter);
-app.use("/users", usersRouter);
-app.use("/track_history", tracksHistoryRouter);
-app.use("/categories", categoriesRouter);
-app.use("api/promotions", promotionsRouter);
+app.use("/api/artists", artistsRouter);
+app.use("/api/albums", albumsRouter);
+app.use("/api/tracks", tracksRouter);
+app.use("/api/users", usersRouter);
+app.use("/api/track_history", tracksHistoryRouter);
+app.use("/api/categories", categoriesRouter);
+app.use("/api/promotions", promotionsRouter);
 app.use("/api/companies", companiesRouter);
 
 const run = async () => {
