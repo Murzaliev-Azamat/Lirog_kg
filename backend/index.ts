@@ -17,6 +17,11 @@ dotenv.config();
 
 const app = express();
 
+app.use("/api/images", (req, res, next) => {
+  console.log(`Запрос к файлу: ${req.url}`);
+  next();
+});
+
 app.use(cors());
 // app.use(express.static("public"));
 app.use("/api/images", express.static("/home/good/public/images"));
