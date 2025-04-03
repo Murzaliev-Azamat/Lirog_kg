@@ -14,7 +14,7 @@ import * as dotenv from "dotenv";
 import removeExpiredPromotions from "./routers/promotionsCleanup";
 
 dotenv.config();
-//
+////
 const app = express();
 
 app.use(cors());
