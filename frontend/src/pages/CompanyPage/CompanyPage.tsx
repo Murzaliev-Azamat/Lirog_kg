@@ -2,10 +2,11 @@ import React, { useEffect } from 'react';
 import AdvBlock from '../../components/UI/AdvBlock/AdvBlock';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { deletePromotion, fetchPromotionsByCompanyId } from '../../store/promotionsThunks';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { selectPromotions } from '../../store/promotionsSlice';
 import { selectUser } from '../users/usersSlise';
 import { useMediaQuery, useTheme } from '@mui/material';
+import './CompanyPage.css';
 
 const CompanyPage = () => {
   const dispatch = useAppDispatch();
@@ -34,22 +35,11 @@ const CompanyPage = () => {
 
   return (
     <AdvBlock urlImage={urlImage}>
-      <div>
+      <div className="about-company-block">
         {promotions.map((promotion) => (
-          <div
-            key={promotion._id}
-            style={{
-              backgroundColor: 'white',
-              marginBottom: '10px',
-              boxShadow: '1px 1px 4px grey',
-              borderRadius: '7px',
-              padding: '3px 10px 10px 10px',
-              marginLeft: '10px',
-              marginRight: '10px',
-            }}
-          >
+          <div key={promotion._id}>
             <h2 dangerouslySetInnerHTML={{ __html: promotion.title }} />
-            <p style={{ wordWrap: 'break-word' }} dangerouslySetInnerHTML={{ __html: promotion.description }} />
+            <p dangerouslySetInnerHTML={{ __html: promotion.description }} />
             {user && user.role === 'admin' && (
               <button onClick={() => removePromotion(promotion._id)} className="btn btn-danger btn-sm">
                 delete

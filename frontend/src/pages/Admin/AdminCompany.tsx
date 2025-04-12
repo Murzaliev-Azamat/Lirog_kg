@@ -7,6 +7,7 @@ import { apiUrl } from '../../constants';
 import { selectFetchAllLoading } from '../../store/companiesSlice';
 import InfiniteScroll from 'react-infinite-scroller';
 import { selectSearch } from '../../store/searchSlice';
+import './AdminCompany.css';
 
 const AdminCompany = () => {
   const companies = useAppSelector(selectCompanies);
@@ -37,13 +38,13 @@ const AdminCompany = () => {
       <NavLink to={'/add-company'} type="button" className="btn btn-primary btn-sm">
         Добавить компанию
       </NavLink>
-      <div style={{ display: 'flex', marginTop: '20px' }}>
-        <h3 style={{ marginRight: '13px', fontSize: '20px' }}>Название компании</h3>
-        <h3 style={{ marginRight: '130px', fontSize: '20px' }}>Описание</h3>
-        <h3 style={{ marginRight: '46px', fontSize: '20px' }}>Категории</h3>
-        <h3 style={{ marginRight: '83px', fontSize: '20px' }}>Акции</h3>
-        <h3 style={{ marginRight: '30px', fontSize: '20px' }}>Картинки</h3>
-        <h3 style={{ fontSize: '20px' }}>Ссылка</h3>
+      <div className="h4-block-company-admin">
+        <h4>Название компании</h4>
+        <h4>Описание</h4>
+        <h4>Категории</h4>
+        <h4>Акции</h4>
+        <h4>Картинки</h4>
+        <h4>Ссылка</h4>
       </div>
       <InfiniteScroll
         // pageStart={0}
@@ -59,48 +60,27 @@ const AdminCompany = () => {
       >
         {companies.map((company) => {
           return (
-            <div
-              key={company._id}
-              style={{
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-                marginBottom: '5px',
-                marginTop: '5px',
-                borderBottom: '1px solid grey',
-                borderTop: '1px solid grey',
-                paddingTop: '5px',
-                paddingBottom: '5px',
-              }}
-            >
-              <div style={{ width: '180px' }}>
-                <p style={{ margin: '0', wordWrap: 'break-word' }}>{company.title}</p>
+            <div key={company._id} className="p-block-company-admin">
+              <div>
+                <p>{company.title}</p>
               </div>
-              <div style={{ width: '200px' }}>
-                <p style={{ margin: '0', wordWrap: 'break-word' }}>{company.description}</p>
+              <div>
+                <p>{company.description}</p>
               </div>
-              <div style={{ width: '120px', overflow: 'hidden' }}>
+              <div>
                 {company.categories.map((companyCategory) => {
-                  return (
-                    <p style={{ margin: '0' }} key={companyCategory._id}>
-                      {companyCategory.title}
-                    </p>
-                  );
+                  return <p key={companyCategory._id}>{companyCategory.title}</p>;
                 })}
               </div>
-              <div style={{ width: '120px', overflow: 'hidden' }}>
-                <NavLink
-                  to={'/company-page/' + company._id}
-                  className="btn btn-primary btn-sm"
-                  style={{ marginBottom: '5px' }}
-                >
+              <div>
+                <NavLink to={'/company-page/' + company._id} className="btn btn-primary btn-sm">
                   Подробнее
                 </NavLink>
               </div>
-              <div style={{ width: '100px', overflow: 'hidden' }}>
+              <div>
                 <img src={apiUrl + '/' + company.image} style={{ width: '100px' }} alt="image"></img>
               </div>
-              <div style={{ width: '100px', overflow: 'hidden' }}>
+              <div>
                 <a href={company.link}>На сайт</a>
               </div>
               <div>

@@ -5,7 +5,7 @@ import LockOpenIcon from '@mui/icons-material/LockOpen';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { googleLogin, login } from './usersThunks';
 import { selectLoginError } from './usersSlise';
-import { LoginMutation } from '../../../types';
+import { LoginMutation } from '../../types';
 import { GoogleLogin } from '@react-oauth/google';
 
 const Login = () => {

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import {
   clearAllPromotions,
@@ -6,18 +6,13 @@ import {
   selectHasMorePromotion,
   selectPromotions,
 } from '../../store/promotionsSlice';
-import { NavLink, useParams } from 'react-router-dom';
-import {
-  deletePromotion,
-  fetchPromotionById,
-  fetchPromotions,
-  fetchPromotionsByAdmin,
-  fetchPromotionsBySearch,
-} from '../../store/promotionsThunks';
+import { NavLink } from 'react-router-dom';
+import { deletePromotion, fetchPromotionsByAdmin, fetchPromotionsBySearch } from '../../store/promotionsThunks';
 import { apiUrl } from '../../constants';
 import InfiniteScroll from 'react-infinite-scroller';
 import { selectSearch } from '../../store/searchSlice';
 import Accordion from 'react-bootstrap/Accordion';
+import './AdminPromotion.css';
 
 const AdminPromotion = () => {
   const dispatch = useAppDispatch();
@@ -48,11 +43,11 @@ const AdminPromotion = () => {
       <NavLink to={'/add-promotion'} type="button" className="btn btn-primary btn-sm">
         Добавить акцию
       </NavLink>
-      <div style={{ display: 'flex', marginTop: '20px' }}>
-        <h3 style={{ marginRight: '111px', fontSize: '20px' }}>Название акции</h3>
-        <h3 style={{ marginRight: '168px', fontSize: '20px' }}>Компания</h3>
-        <h3 style={{ marginRight: '174px', fontSize: '20px' }}>Описание</h3>
-        <h3 style={{ marginRight: '50px', fontSize: '20px' }}>Картинки</h3>
+      <div className="h4-block-promotion-admin">
+        <h4>Название акции</h4>
+        <h4>Компания</h4>
+        <h4>Описание</h4>
+        <h4>Картинки</h4>
       </div>
       <InfiniteScroll
         // pageStart={0}
@@ -68,31 +63,15 @@ const AdminPromotion = () => {
       >
         {promotions.map((promotion) => {
           return (
-            <div
-              key={promotion._id}
-              style={{
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-                marginBottom: '5px',
-                marginTop: '5px',
-                borderBottom: '1px solid grey',
-                borderTop: '1px solid grey',
-                paddingTop: '5px',
-                paddingBottom: '5px',
-              }}
-            >
-              <div style={{ width: '200px' }}>
-                <p
-                  style={{ margin: '0', wordWrap: 'break-word' }}
-                  dangerouslySetInnerHTML={{ __html: promotion.title }}
-                />
+            <div key={promotion._id} className="p-block-promotion-admin">
+              <div>
+                <p dangerouslySetInnerHTML={{ __html: promotion.title }} />
               </div>
-              <div style={{ width: '200px' }}>
-                <p style={{ margin: '0', wordWrap: 'break-word' }}>{promotion.company.title}</p>
+              <div>
+                <p>{promotion.company.title}</p>
               </div>
-              <div style={{ width: '200px' }}>
-                <div style={{ margin: '0', wordWrap: 'break-word' }}>
+              <div>
+                <div>
                   <Accordion>
                     <Accordion.Item eventKey="0">
                       <Accordion.Header>Описание акции</Accordion.Header>
@@ -101,7 +80,7 @@ const AdminPromotion = () => {
                   </Accordion>
                 </div>
               </div>
-              <div style={{ width: '100px' }}>
+              <div>
                 <img src={apiUrl + '/' + promotion.image} style={{ width: '100px' }} alt="image"></img>
               </div>
               <div>

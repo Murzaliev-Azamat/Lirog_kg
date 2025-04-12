@@ -38,7 +38,6 @@ const AdvBlock: React.FC<Props> = ({ urlImage, children }) => {
 
   return (
     <MyBlock>
-      {/*<div style={{ maxWidth: '1200px', margin: '0 auto', overflow: 'hidden', minHeight: '100vh' }}>{children}</div>*/}
       <div style={{ maxWidth: '1200px', margin: '0 auto', minHeight: '100vh', position: 'relative' }}>{children}</div>
     </MyBlock>
   );

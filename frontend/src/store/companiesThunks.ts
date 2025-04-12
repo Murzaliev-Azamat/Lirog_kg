@@ -1,8 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { Company, CompanyApi, FilterByCategoryForCompany, Search } from '../../types';
-import axiosApi from '../axiosApi';
-
 import { RootState } from '../app/store';
+import axiosApi from '../axiosApi';
+import { Company, CompanyApi, FilterByCategoryForCompany, Search } from '../types';
 
 export const fetchCompanies = createAsyncThunk<Company[], void, { state: RootState }>(
   'companies/fetchAll',
@@ -55,20 +54,6 @@ export const fetchCompanyById = createAsyncThunk<Company, string>('companies/fet
   return company;
 });
 
-// export const fetchCompany = createAsyncThunk<Company, string>(
-//   'companies/fetchOne',
-//   async (id) => {
-//     const companyResponse = await axiosApi.get<Company | null>('companies/' + id);
-//     const company = companyResponse.data;
-//
-//     if (company === null) {
-//       throw new Error('Not found!')
-//     }
-//
-//     return company;
-//   },
-// );
-
 export const addCompany = createAsyncThunk<void, CompanyApi>('companies/addCompany', async (company) => {
   const formData = new FormData();
 
@@ -115,10 +100,3 @@ export const editCompany = createAsyncThunk<void, CompanyMutation>('companies/ed
 export const deleteCompany = createAsyncThunk<void, string>('companies/deleteCompany', async (id) => {
   await axiosApi.delete('/companies/' + id);
 });
-
-// export const deleteOneNews = createAsyncThunk<void, string>(
-//   'news/deleteOne',
-//   async (id) => {
-//     await axiosApi.delete('/news/' + id);
-//   }
-// );

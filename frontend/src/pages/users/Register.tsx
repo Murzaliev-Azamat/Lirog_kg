@@ -5,7 +5,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { register } from './usersThunks';
 import { selectRegisterError } from './usersSlise';
-import { RegisterMutation } from '../../../types';
+import { RegisterMutation } from '../../types';
 import FileInput from '../../components/UI/FileInput/FileInput';
 
 const Register = () => {

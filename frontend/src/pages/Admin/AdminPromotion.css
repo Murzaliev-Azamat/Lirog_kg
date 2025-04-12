@@ -1,0 +1,23 @@
+.h4-block-promotion-admin {
+  display: flex;
+  width: 800px;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.p-block-promotion-admin {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 5px;
+  margin-top: 5px;
+  border-bottom: 1px solid grey;
+  border-top: 1px solid grey;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.p-block-promotion-admin div {
+  width: 200px;
+  word-break: break-word;
+}

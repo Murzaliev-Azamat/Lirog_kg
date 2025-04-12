@@ -1,0 +1,91 @@
+.my-card {
+  width: 22rem;
+  min-height: 140px;
+  box-shadow: 0 0 3px grey;
+  border-radius: 0;
+  background-color: white;
+  margin-top: 50px;
+  margin-bottom: 5px;
+}
+
+.my-card-header {
+  display: flex;
+  position: relative;
+}
+
+.img-block {
+  border-right: 1px solid #E0E0E0FF;
+}
+
+.img-promotion {
+  width: 112px;
+  height: 112px;
+  object-fit: cover;
+  object-position: center center;
+}
+
+.card-block-texts {
+  flex-grow: 1;
+  word-break: break-word;
+  height: 112px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  overflow: hidden;
+}
+
+p {
+  width: 100%;
+  font-family: 'Balsamiq Sans', sans-serif;
+  font-size: 18px ;
+  margin: 0;
+  padding: 0 10px;
+}
+
+.time-block {
+  display: flex;
+  align-items: center;
+  position: absolute;
+  top: -30%;
+  left: 0;
+}
+
+.like-block {
+  display: flex;
+  align-items: center;
+  position: absolute;
+  top: -28%;
+  right: 0;
+}
+
+.icon {
+  display: inline-block;
+  fill: white;
+  width: 23px;
+  height: 23px;
+}
+
+.icon-filter {
+  display: inline-block;
+  fill: grey;
+  width: 25px;
+  height: 25px;
+}
+
+.icon-red {
+  fill: red;
+}
+
+.icon:active {
+  width: 28px;
+  height: 28px;
+  margin-top: -5px;
+  margin-right: -5px;
+}
+
+.rating-span {
+  display: block;
+  color: white;
+  font-size: 15px;
+  line-height: 1;
+}

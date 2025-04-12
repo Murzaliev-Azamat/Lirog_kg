@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { FilterByCategoryForPromotion, Promotion, PromotionApi, Search } from '../../types';
-import axiosApi from '../axiosApi';
 import { RootState } from '../app/store';
+import axiosApi from '../axiosApi';
+import { FilterByCategoryForPromotion, Promotion, PromotionApi, Search } from '../types';
 
 export const fetchPromotions = createAsyncThunk<Promotion[], void, { state: RootState }>(
   'promotions/fetchAll',

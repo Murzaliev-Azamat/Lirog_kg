@@ -1,6 +1,7 @@
 import React from 'react';
 import AdvBlock from '../../components/UI/AdvBlock/AdvBlock';
 import { useMediaQuery, useTheme } from '@mui/material';
+import './Contacts.css';
 
 const Contacts = () => {
   const theme = useTheme();
@@ -12,17 +13,7 @@ const Contacts = () => {
 
   return (
     <AdvBlock urlImage={urlImage}>
-      <div
-        style={{
-          backgroundColor: 'white',
-          marginBottom: '10px',
-          boxShadow: '1px 1px 4px grey',
-          borderRadius: '7px',
-          padding: '16px',
-          marginLeft: '10px',
-          marginRight: '10px',
-        }}
-      >
+      <div className="contacts-block">
         <h1>Контакты</h1>
         <p>Tel: +996556720128 (WhatsApp)</p>
         <p>Email: lirog.kg@gmail.com</p>

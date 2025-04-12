@@ -1,17 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Grid, InputLabel, MenuItem, Select, SelectChangeEvent, TextField } from '@mui/material';
 import { useNavigate, useParams } from 'react-router-dom';
-import { CompanyApi } from '../../../../types';
+import { CompanyApi } from '../../../types';
 import { selectAddCategoryLoading, selectCategories } from '../../../store/categoriesSlice';
 import { useAppDispatch, useAppSelector } from '../../../app/hooks';
 import FileInput from '../FileInput/FileInput';
 import { addCompany, editCompany, fetchCompanies, fetchCompanyById } from '../../../store/companiesThunks';
 import { clearAllCompanies, selectCompany } from '../../../store/companiesSlice';
-import { addPromotion, editPromotion, fetchPromotionById } from '../../../store/promotionsThunks';
-import dayjs from 'dayjs';
-import { selectPromotion } from '../../../store/promotionsSlice';
 import { apiUrl } from '../../../constants';
 import { selectFilterCategory } from '../../../store/filterSlice';
+import './FormForCompany.css';
 
 const FormForCompany = () => {
   const params = useParams();
@@ -144,59 +142,37 @@ const FormForCompany = () => {
   }
 
   return (
-    <form
-      autoComplete="off"
-      onSubmit={submitFormHandler}
-      style={{ marginTop: '120px', width: '500px', marginLeft: '50px' }}
-    >
-      <Grid item container justifyContent="space-between" alignItems="center" xs sx={{ mb: 1 }}>
-        <InputLabel id="title">Название</InputLabel>
-        <TextField
-          sx={{ width: '100%' }}
-          id="title"
-          value={state.title}
-          onChange={inputChangeHandler}
-          name="title"
-          required
-        />
+    <form autoComplete="off" onSubmit={submitFormHandler} className="form">
+      <Grid container direction="column" rowSpacing={2}>
+        <Grid item>
+          <InputLabel id="title">Название</InputLabel>
+          <TextField
+            sx={{ width: '100%' }}
+            id="title"
+            value={state.title}
+            onChange={inputChangeHandler}
+            name="title"
+            required
+          />
+        </Grid>
 
-        <InputLabel id="parent">Описание</InputLabel>
-        <TextField
-          sx={{ width: '100%' }}
-          id="description"
-          value={state.description}
-          onChange={inputChangeHandler}
-          name="description"
-        />
+        <Grid item>
+          <InputLabel id="parent">Описание</InputLabel>
+          <TextField
+            sx={{ width: '100%' }}
+            id="description"
+            value={state.description}
+            onChange={inputChangeHandler}
+            name="description"
+          />
+        </Grid>
 
-        <InputLabel id="parent">Ссылка на сайт</InputLabel>
-        <TextField sx={{ width: '100%' }} id="link" value={state.link} onChange={inputChangeHandler} name="link" />
-      </Grid>
+        <Grid item>
+          <InputLabel id="parent">Ссылка на сайт</InputLabel>
+          <TextField sx={{ width: '100%' }} id="link" value={state.link} onChange={inputChangeHandler} name="link" />
+        </Grid>
 
-      {/*<Grid container direction="column" spacing={2} sx={{ mb: 1 }}>*/}
-      {/*  <Grid item xs>*/}
-      {/*    <InputLabel id="parent">Категории</InputLabel>*/}
-      {/*    <Select*/}
-      {/*      labelId="categories"*/}
-      {/*      sx={{ width: '100%' }}*/}
-      {/*      id="categories"*/}
-      {/*      value={state.categories}*/}
-      {/*      onChange={selectChangeHandler}*/}
-      {/*      name="categories"*/}
-      {/*      multiple*/}
-      {/*      required*/}
-      {/*    >*/}
-      {/*      {categories &&*/}
-      {/*        categories.map((category) => (*/}
-      {/*          <MenuItem value={category._id} key={category._id}>*/}
-      {/*            {category.title}*/}
-      {/*          </MenuItem>*/}
-      {/*        ))}*/}
-      {/*    </Select>*/}
-      {/*  </Grid>*/}
-
-      <Grid container direction="column" spacing={2} sx={{ mb: 1 }}>
-        <Grid item xs>
+        <Grid item>
           <InputLabel id="parent">Основная категория</InputLabel>
           <Select
             labelId="categories"
@@ -220,7 +196,7 @@ const FormForCompany = () => {
           </Select>
         </Grid>
 
-        <Grid item xs>
+        <Grid item>
           <InputLabel id="parent">Подкатегории</InputLabel>
           <Select
             labelId="categories"
@@ -245,16 +221,17 @@ const FormForCompany = () => {
           </Select>
         </Grid>
 
-        <Grid item xs>
+        <Grid item>
           <FileInput onChange={fileInputChangeHandler} name="image" label="Image" />
         </Grid>
-        <Grid item xs>
+
+        <Grid item>
           <img
             src={apiUrl + '/' + state.image}
-            className="card-img-top"
             style={{
               height: '200px',
               objectFit: 'cover',
+              paddingBottom: '16px',
             }}
             alt="image"
           />
@@ -262,7 +239,7 @@ const FormForCompany = () => {
       </Grid>
 
       {params.id ? (
-        <Button disabled={disabled} style={{ marginBottom: '40px' }} type="submit" color="primary" variant="contained">
+        <Button disabled={disabled} type="submit" color="primary" variant="contained">
           Edit company
         </Button>
       ) : (

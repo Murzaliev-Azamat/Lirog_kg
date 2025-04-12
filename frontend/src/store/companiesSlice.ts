@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../app/store';
 import { fetchCompanies, fetchCompaniesByCategory, fetchCompaniesBySearch, fetchCompanyById } from './companiesThunks';
-import { Company } from '../../types';
+import { Company } from '../types';
 import { fetchPromotionById } from './promotionsThunks';
 
 interface CompaniesState {
@@ -44,7 +44,8 @@ export const CompaniesSlice = createSlice({
     });
     builder.addCase(fetchCompanies.fulfilled, (state, action) => {
       state.fetchAllLoading = false;
-      Array.prototype.push.apply(state.companies, action.payload);
+      state.companies = [...state.companies, ...action.payload];
+      //Array.prototype.push.apply(state.companies, action.payload);
       state.pageCompanies++;
       if (action.payload.length === 0) {
         state.hasMoreCompany = false;
@@ -58,7 +59,8 @@ export const CompaniesSlice = createSlice({
     });
     builder.addCase(fetchCompaniesByCategory.fulfilled, (state, action) => {
       state.fetchAllLoading = false;
-      Array.prototype.push.apply(state.companies, action.payload);
+      state.companies = [...state.companies, ...action.payload];
+      //Array.prototype.push.apply(state.companies, action.payload);
       state.pageCompaniesByCategory++;
       if (action.payload.length === 0) {
         state.hasMoreCompany = false;
@@ -72,7 +74,8 @@ export const CompaniesSlice = createSlice({
     });
     builder.addCase(fetchCompaniesBySearch.fulfilled, (state, action) => {
       state.fetchAllLoading = false;
-      Array.prototype.push.apply(state.companies, action.payload);
+      state.companies = [...state.companies, ...action.payload];
+      //Array.prototype.push.apply(state.companies, action.payload);
       state.pageCompaniesBySearch++;
       if (action.payload.length === 0) {
         state.hasMoreCompany = false;

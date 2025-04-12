@@ -1,10 +1,5 @@
 import React from 'react';
-import {
-  clearAllCompanies,
-  selectCompanies,
-  selectFetchAllLoading,
-  selectHasMoreCompany,
-} from '../../store/companiesSlice';
+import { selectCompanies, selectFetchAllLoading, selectHasMoreCompany } from '../../store/companiesSlice';
 import { fetchCompanies, fetchCompaniesByCategory, fetchCompaniesBySearch } from '../../store/companiesThunks';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import CardForCompany from '../../components/UI/CardForCompany/CardForCompany';
@@ -16,6 +11,7 @@ import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
 import { Box, useMediaQuery, useTheme } from '@mui/material';
 import { selectSearch, setSearch } from '../../store/searchSlice';
+import Spinner from '../../components/UI/Spinner/Spinner';
 
 const Search = styled('div')(({ theme }) => ({
   backgroundColor: 'black',
@@ -33,7 +29,6 @@ const Search = styled('div')(({ theme }) => ({
     width: 'auto',
   },
 }));
-
 const SearchIconWrapper = styled('div')(({ theme }) => ({
   color: 'white',
   padding: theme.spacing(0, 2),
@@ -44,7 +39,6 @@ const SearchIconWrapper = styled('div')(({ theme }) => ({
   alignItems: 'center',
   justifyContent: 'center',
 }));
-
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
   width: '100%',
   color: 'white',
@@ -66,8 +60,6 @@ const Companies = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
-  console.log(search);
-
   const loadMore = async () => {
     if (fetchAllLoading) {
       return;
@@ -86,14 +78,7 @@ const Companies = () => {
 
   const onTextFieldChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
-    console.log(value);
     dispatch(setSearch(value));
-  };
-
-  const onKeyUpSearch = async () => {
-    // dispatch(setSearch(search));
-    // window.scrollTo(0, 0);
-    // await dispatch(clearAllCompanies());
   };
 
   const urlImage = isMobile
@@ -107,18 +92,14 @@ const Companies = () => {
           <SearchIconWrapper>
             <SearchIcon />
           </SearchIconWrapper>
-          <StyledInputBase onKeyUp={onKeyUpSearch} placeholder="Search…" onChange={onTextFieldChange} />
+          <StyledInputBase placeholder="Search…" onChange={onTextFieldChange} />
         </Search>
       </Box>
       <InfiniteScroll
         // pageStart={0}
         loadMore={loadMore}
         hasMore={hasMoreCompany}
-        loader={
-          <div className="loader" key={0}>
-            Loading ...
-          </div>
-        }
+        loader={<Spinner key={0} />}
         // useWindow={false}
       >
         <div className="row p-2 gx-0 justify-content-evenly justify-content-sm-start">

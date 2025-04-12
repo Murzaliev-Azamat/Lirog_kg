@@ -1,25 +1,24 @@
-import React, { useEffect } from 'react';
-import './App.css';
+import React, { ReactElement, useEffect } from 'react';
 import { Box } from '@mui/material';
 import AppToolBar from './components/UI/AppToolBar/AppToolBar';
-import Home from './containers/Home/Home';
+import Home from './pages/Home/Home';
 import { Route, Routes } from 'react-router-dom';
-import Companies from './containers/Companies/Companies';
+import Companies from './pages/Companies/Companies';
 import { useLocation } from 'react-router-dom';
-import Admin from './containers/Admin/Admin';
-import Register from './containers/users/Register';
-import Login from './containers/users/Login';
+import Admin from './pages/Admin/Admin';
+import Register from './pages/users/Register';
+import Login from './pages/users/Login';
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
 import { useAppSelector } from './app/hooks';
-import { selectUser } from './containers/users/usersSlise';
-import AdminCategory from './containers/Admin/AdminCategory';
-import AdminCompany from './containers/Admin/AdminCompany';
-import AdminPromotion from './containers/Admin/AdminPromotion';
+import { selectUser } from './pages/users/usersSlise';
+import AdminCategory from './pages/Admin/AdminCategory';
+import AdminCompany from './pages/Admin/AdminCompany';
+import AdminPromotion from './pages/Admin/AdminPromotion';
 import FormForCategory from './components/UI/FormForCategory/FormForCategory';
-import FormForCompany from './components/UI/FormForCompany/FormFormCompany';
+import FormForCompany from './components/UI/FormForCompany/FormForCompany';
 import FormForPromotion from './components/UI/FormForPromotion/FormForPromotion';
-import CompanyPage from './containers/CompanyPage/CompanyPage';
-import Contacts from './containers/Contacts/Contacts';
+import CompanyPage from './pages/CompanyPage/CompanyPage';
+import Contacts from './pages/Contacts/Contacts';
 
 function App() {
   const location = useLocation();
@@ -28,64 +27,26 @@ function App() {
   }, [location]);
 
   const user = useAppSelector(selectUser);
-  //
+
+  const withAdminProtection = (element: ReactElement) => (
+    <ProtectedRoute isAllowed={user && user.role === 'admin'}>{element}</ProtectedRoute>
+  );
+
   return (
     <div className="App">
       <Box>
         <AppToolBar />
         <Routes>
-          <Route
-            path="/admin"
-            element={
-              <ProtectedRoute isAllowed={user && user.role === 'admin'}>
-                <Admin />
-              </ProtectedRoute>
-            }
-          >
+          <Route path="/admin" element={withAdminProtection(<Admin />)}>
             <Route path="admin-category" element={<AdminCategory />} />
             <Route path="admin-company" element={<AdminCompany />} />
             <Route path="admin-promotion" element={<AdminPromotion />} />
           </Route>
-          <Route
-            path="/add-category"
-            element={
-              <ProtectedRoute isAllowed={user && user.role === 'admin'}>
-                <FormForCategory />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/add-company"
-            element={
-              <ProtectedRoute isAllowed={user && user.role === 'admin'}>
-                <FormForCompany />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/edit-company/:id"
-            element={
-              <ProtectedRoute isAllowed={user && user.role === 'admin'}>
-                <FormForCompany />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/add-promotion"
-            element={
-              <ProtectedRoute isAllowed={user && user.role === 'admin'}>
-                <FormForPromotion />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/edit-promotion/:id"
-            element={
-              <ProtectedRoute isAllowed={user && user.role === 'admin'}>
-                <FormForPromotion />
-              </ProtectedRoute>
-            }
-          />
+          <Route path="/add-category" element={withAdminProtection(<FormForCategory />)} />
+          <Route path="/add-company" element={withAdminProtection(<FormForCompany />)} />
+          <Route path="/edit-company/:id" element={withAdminProtection(<FormForCompany />)} />
+          <Route path="/add-promotion" element={withAdminProtection(<FormForPromotion />)} />
+          <Route path="/edit-promotion/:id" element={withAdminProtection(<FormForPromotion />)} />
           <Route path="/" element={<Home />} />
           <Route path="/companies" element={<Companies />} />
           <Route path="/company-page/:id" element={<CompanyPage />} />

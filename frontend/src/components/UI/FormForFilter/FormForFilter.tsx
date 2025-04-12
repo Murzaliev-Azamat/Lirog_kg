@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Button, FormControlLabel, Switch } from '@mui/material';
 import { useAppDispatch, useAppSelector } from '../../../app/hooks';
 import { selectCategories } from '../../../store/categoriesSlice';
@@ -91,7 +91,7 @@ const FormForFilter: React.FC<Props> = ({ closeFilter }) => {
         value={filterSubcategory}
         onChange={inputChangeHandler}
       >
-        <option>Выберете категорию</option>
+        <option>Выберете подкатегорию</option>
         {categories &&
           categories.map((category) => {
             if (filterCategory !== '' && category.parent && filterCategory === category.parent._id) {
@@ -105,7 +105,6 @@ const FormForFilter: React.FC<Props> = ({ closeFilter }) => {
       </select>
 
       <FormControlLabel
-        sx={{ mb: 2 }}
         control={<Switch onChange={switchBirthday} checked={isBirthday} />}
         label="Акции в День рождение!"
       />

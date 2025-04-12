@@ -49,9 +49,6 @@ const Menu: React.FC<ModalProps> = ({ show, title, onClose, getStartInfo }) => {
                 </Link>
               </p>
             </div>
-            {/*<div className="modal-footer">*/}
-            {/*  <button className="btn btn-danger" onClick={onClose}>Cancel</button>*/}
-            {/*</div>*/}
           </div>
         </div>
       </motion.div>

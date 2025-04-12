@@ -1,0 +1,9 @@
+.contacts-block {
+  background-color: white;
+  margin-bottom: 10px;
+  box-shadow: 1px 1px 4px grey;
+  border-radius: 7px;
+  padding: 16px;
+  margin-left: 10px;
+  margin-right: 10px;
+}

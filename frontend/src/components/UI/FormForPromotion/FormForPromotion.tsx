@@ -11,26 +11,22 @@ import {
   TextField,
 } from '@mui/material';
 import { useNavigate, useParams } from 'react-router-dom';
-import { CompanyApi, PromotionApi } from '../../../../types';
-import { selectAddCategoryLoading, selectCategories } from '../../../store/categoriesSlice';
+import { PromotionApi } from '../../../types';
+import { selectAddCategoryLoading } from '../../../store/categoriesSlice';
 import { useAppDispatch, useAppSelector } from '../../../app/hooks';
-import FileInput from '../FileInput/FileInput';
-import { addCompany, fetchCompanies } from '../../../store/companiesThunks';
-import { clearAllCompanies, selectCompanies } from '../../../store/companiesSlice';
+import { fetchCompanies } from '../../../store/companiesThunks';
+import { selectCompanies } from '../../../store/companiesSlice';
 import {
   addPromotion,
   editPromotion,
   fetchPromotionById,
-  fetchPromotions,
   fetchPromotionsByAdmin,
 } from '../../../store/promotionsThunks';
 import { clearAllPromotions, selectPromotion } from '../../../store/promotionsSlice';
 import dayjs from 'dayjs';
-import { setCategory } from '../../../store/filterSlice';
-import { apiUrl } from '../../../constants';
-import Quill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import ReactQuill from 'react-quill';
+import './FormForPromotion.css';
 
 const FormForPromotion = () => {
   const params = useParams();
@@ -146,6 +142,14 @@ const FormForPromotion = () => {
     });
   };
 
+  const selectChangeHandler = (e: SelectChangeEvent) => {
+    const name = e.target.name;
+    const value = e.target.value;
+    setState((prevState) => {
+      return { ...prevState, [name]: value };
+    });
+  };
+
   const titleQuillChangeHandler = (value: string) => {
     setState((prevState) => ({
       ...prevState,
@@ -160,36 +164,9 @@ const FormForPromotion = () => {
     }));
   };
 
-  const selectChangeHandler = (e: SelectChangeEvent) => {
-    const name = e.target.name;
-    const value = e.target.value;
-    setState((prevState) => {
-      return { ...prevState, [name]: value };
-    });
-  };
-
-  const fileInputChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, files } = e.target;
-    if (files && files[0]) {
-      setState((prevState) => ({
-        ...prevState,
-        [name]: files[0],
-      }));
-    } else {
-      setState((prevState) => ({
-        ...prevState,
-        [name]: null,
-      }));
-    }
-  };
-
   const switchBirthday = () => {
     setState({ ...state, isBirthday: !state.isBirthday });
   };
-
-  // const handleDateTimeChange = (dateTime: Date | null) => {
-  //   setSelectedDateTime(dateTime);
-  // };
 
   let disabled = false;
 
@@ -198,67 +175,47 @@ const FormForPromotion = () => {
   }
 
   return (
-    <form
-      autoComplete="off"
-      onSubmit={submitFormHandler}
-      style={{ marginTop: '120px', width: '500px', marginLeft: '50px' }}
-    >
-      <Grid item container justifyContent="space-between" alignItems="center" xs sx={{ mb: 1 }}>
-        <InputLabel id="title">Название</InputLabel>
-        <ReactQuill
-          theme="snow"
-          value={state.title}
-          onChange={titleQuillChangeHandler}
-          style={{ height: '100px', width: '100%', marginBottom: '80px' }}
-          modules={{
-            toolbar: [
-              [{ header: [false] }],
-              ['bold', 'italic', 'underline', 'strike'],
-              [{ color: [] }], // Добавление модуля цвета текста
-              [{ list: 'ordered' }, { list: 'bullet' }],
-              // ['link', 'image', 'video'],
-              ['clean'],
-            ],
-          }}
-        />
-        {/*<TextField*/}
-        {/*  sx={{ width: '100%' }}*/}
-        {/*  id="title"*/}
-        {/*  value={state.title}*/}
-        {/*  onChange={inputChangeHandler}*/}
-        {/*  name="title"*/}
-        {/*  required*/}
-        {/*/>*/}
+    <form autoComplete="off" onSubmit={submitFormHandler} className="form">
+      <Grid container direction="column" rowSpacing={2}>
+        <Grid item style={{ width: '100%' }}>
+          <InputLabel id="title">Название</InputLabel>
+          <ReactQuill
+            theme="snow"
+            value={state.title}
+            onChange={titleQuillChangeHandler}
+            modules={{
+              toolbar: [
+                [{ header: [false] }],
+                ['bold', 'italic', 'underline', 'strike'],
+                [{ color: [] }], // Добавление модуля цвета текста
+                [{ list: 'ordered' }, { list: 'bullet' }],
+                // ['link', 'image', 'video'],
+                ['clean'],
+              ],
+            }}
+          />
+        </Grid>
 
-        <InputLabel id="description">Описание</InputLabel>
-        <ReactQuill
-          theme="snow"
-          value={state.description}
-          onChange={descriptionQuillChangeHandler}
-          style={{ height: '100px', width: '100%', marginBottom: '80px' }}
-          modules={{
-            toolbar: [
-              [{ header: [false] }],
-              ['bold', 'italic', 'underline', 'strike'],
-              [{ color: [] }], // Добавление модуля цвета текста
-              [{ list: 'ordered' }, { list: 'bullet' }],
-              // ['link', 'image', 'video'],
-              ['clean'],
-            ],
-          }}
-        />
-        {/*  <TextField*/}
-        {/*    sx={{ width: '100%' }}*/}
-        {/*    id="description"*/}
-        {/*    value={state.description}*/}
-        {/*    onChange={inputChangeHandler}*/}
-        {/*    name="description"*/}
-        {/*    required*/}
-        {/*  />*/}
-      </Grid>
+        <Grid item style={{ width: '100%' }}>
+          <InputLabel id="description">Описание</InputLabel>
+          <ReactQuill
+            theme="snow"
+            value={state.description}
+            onChange={descriptionQuillChangeHandler}
+            modules={{
+              toolbar: [
+                [{ header: [false] }],
+                ['bold', 'italic', 'underline', 'strike'],
+                [{ color: [] }], // Добавление модуля цвета текста
+                [{ list: 'ordered' }, { list: 'bullet' }],
+                // ['link', 'image', 'video'],
+                ['clean'],
+              ],
+            }}
+          />
+        </Grid>
 
-      <Grid container direction="column" spacing={2} sx={{ mb: 1 }}>
-        <Grid item xs>
+        <Grid item>
           <InputLabel id="company">Кампания</InputLabel>
           <Select
             labelId="company"
@@ -292,60 +249,45 @@ const FormForPromotion = () => {
             <MenuItem value={true.toString()}>Постоянная акция</MenuItem>
             <MenuItem value={false.toString()}>Временная акция</MenuItem>
           </Select>
+        </Grid>
 
-          <InputLabel sx={{ mt: 2 }} id="startDate">
-            Начало акции
-          </InputLabel>
+        <Grid item>
+          <InputLabel id="startDate">Начало акции</InputLabel>
           <TextField
             type={'datetime-local'}
-            sx={{ width: '100%' }}
             id="startDate"
             value={state.startDate || ''}
             onChange={inputChangeHandler}
             name="startDate"
           />
+        </Grid>
 
-          <InputLabel sx={{ mt: 2 }} id="endDate">
-            Конец акции
-          </InputLabel>
+        <Grid item>
+          <InputLabel id="endDate">Конец акции</InputLabel>
           <TextField
             type={'datetime-local'}
-            sx={{ width: '100%' }}
             id="endDate"
             value={state.endDate || ''}
             onChange={inputChangeHandler}
             name="endDate"
           />
+        </Grid>
 
+        <Grid item>
           <FormControlLabel
-            sx={{ mt: 2 }}
+            sx={{ paddingBottom: 2 }}
             control={<Switch onChange={switchBirthday} value={state.isBirthday} checked={state.isBirthday} />}
             label="Действует ли в Деньрождение?"
           />
         </Grid>
-
-        {/*<Grid item xs>*/}
-        {/*  <FileInput onChange={fileInputChangeHandler} name="image" label="Image" />*/}
-        {/*</Grid>*/}
-        {/*<Grid item xs>*/}
-        {/*  <img*/}
-        {/*    src={apiUrl + '/' + state.image}*/}
-        {/*    className="card-img-top"*/}
-        {/*    style={{*/}
-        {/*      height: '200px',*/}
-        {/*      objectFit: 'cover',*/}
-        {/*    }}*/}
-        {/*    alt="image"*/}
-        {/*  />*/}
-        {/*</Grid>*/}
       </Grid>
 
       {params.id ? (
-        <Button disabled={disabled} style={{ marginBottom: '40px' }} type="submit" color="primary" variant="contained">
+        <Button disabled={disabled} type="submit" color="primary" variant="contained">
           Edit promotion
         </Button>
       ) : (
-        <Button disabled={disabled} style={{ marginBottom: '40px' }} type="submit" color="primary" variant="contained">
+        <Button disabled={disabled} type="submit" color="primary" variant="contained">
           Add promotion
         </Button>
       )}

@@ -14,7 +14,6 @@ const AnonymousMenu = () => {
             color: 'grey',
           },
           fontSize: '11px',
-          padding: { xs: '3px 0px 0px 0px', web: '3px 0px' },
         }}
       >
         Вход
@@ -28,7 +27,6 @@ const AnonymousMenu = () => {
             color: 'grey',
           },
           fontSize: '11px',
-          padding: { xs: '3px 0px 1px 0px', web: '3px 0px' },
         }}
       >
         Регистрация

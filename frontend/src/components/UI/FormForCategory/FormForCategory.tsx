@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { Button, Grid, InputLabel, MenuItem, Select, SelectChangeEvent, TextField } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import { CategoryApi } from '../../../../types';
+import { CategoryApi } from '../../../types';
 import { addCategory, fetchCategories } from '../../../store/categoriesThunks';
 import { selectAddCategoryLoading, selectCategories } from '../../../store/categoriesSlice';
 import { useAppDispatch, useAppSelector } from '../../../app/hooks';
+import './FormForCategory.css';
 
 const FormForCategory = () => {
   const navigate = useNavigate();
@@ -46,21 +47,6 @@ const FormForCategory = () => {
     });
   };
 
-  const fileInputChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, files } = e.target;
-    if (files && files[0]) {
-      setState((prevState) => ({
-        ...prevState,
-        [name]: files[0],
-      }));
-    } else {
-      setState((prevState) => ({
-        ...prevState,
-        [name]: null,
-      }));
-    }
-  };
-
   let disabled = false;
 
   if (addCategoryLoading) {
@@ -68,30 +54,26 @@ const FormForCategory = () => {
   }
 
   return (
-    <form
-      autoComplete="off"
-      onSubmit={submitFormHandler}
-      style={{ marginTop: '120px', width: '500px', marginLeft: '50px' }}
-    >
-      <Grid item container justifyContent="space-between" alignItems="center" xs sx={{ mb: 1 }}>
-        <InputLabel id="parent">Название</InputLabel>
-        <TextField
-          sx={{ width: '100%' }}
-          id="title"
-          // label="Title"
-          value={state.title}
-          onChange={inputChangeHandler}
-          name="title"
-          required
-        />
-      </Grid>
+    <form autoComplete="off" onSubmit={submitFormHandler} className="form">
+      <Grid container direction="column" rowSpacing={2}>
+        <Grid item>
+          <InputLabel id="parent">Название</InputLabel>
+          <TextField
+            sx={{ width: '100%' }}
+            id="title"
+            // label="Title"
+            value={state.title}
+            onChange={inputChangeHandler}
+            name="title"
+            required
+          />
+        </Grid>
 
-      <Grid container direction="column" spacing={2} sx={{ mb: 1 }}>
-        <Grid item xs>
+        <Grid item>
           <InputLabel id="parent">Родительская категория</InputLabel>
           <Select
             labelId="parent"
-            sx={{ width: '100%' }}
+            sx={{ width: '100%', marginBottom: '16px' }}
             id="parent"
             // label="Parent"
             value={state.parent}

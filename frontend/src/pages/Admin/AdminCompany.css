@@ -1,0 +1,23 @@
+.h4-block-company-admin {
+  display: flex;
+  justify-content: space-between;
+  max-width: 900px;
+  margin-top: 20px;
+}
+
+.p-block-company-admin {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 5px;
+  margin-top: 5px;
+  border-bottom: 1px solid grey;
+  border-top: 1px solid grey;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.p-block-company-admin div {
+  width: 150px;
+  word-break: break-word;
+}

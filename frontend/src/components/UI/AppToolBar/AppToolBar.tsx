@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { alpha, styled } from '@mui/material/styles';
+import { styled } from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -19,22 +19,23 @@ import { clearAllCompanies } from '../../../store/companiesSlice';
 import { selectSearch, setSearch } from '../../../store/searchSlice';
 import AnonymousMenu from './AnonymousMenut';
 import UserMenu from './UserMenu';
-import { selectUser } from '../../../containers/users/usersSlise';
+import { selectUser } from '../../../pages/users/usersSlise';
 
 const Search = styled('div')(({ theme }) => ({
   flexGrow: 1,
   position: 'relative',
+  display: 'none',
+  backgroundColor: '#bdbdbd',
   borderRadius: theme.shape.borderRadius,
+  marginRight: '10px',
+  marginLeft: '20px',
   '&:hover': {
     backgroundColor: 'grey',
   },
-  marginLeft: 0,
-  [theme.breakpoints.up('sm')]: {
-    marginLeft: theme.spacing(1),
-    width: 'auto',
+  [theme.breakpoints.up('web')]: {
+    display: 'block',
   },
 }));
-
 const SearchIconWrapper = styled('div')(({ theme }) => ({
   padding: theme.spacing(0, 2),
   height: '100%',
@@ -44,7 +45,13 @@ const SearchIconWrapper = styled('div')(({ theme }) => ({
   alignItems: 'center',
   justifyContent: 'center',
 }));
-
+const MenuIconButton = styled(IconButton)({
+  marginLeft: '1px',
+  color: 'orange',
+  '&:hover': {
+    color: 'grey',
+  },
+});
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
   width: '100%',
   color: 'white',
@@ -54,28 +61,39 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     width: '100%',
   },
 }));
-
-const ColorButton = styled(Button)(({ theme }) => ({
+const WebButtonFilter = styled(Button)(({ theme }) => ({
   color: 'orange',
   backgroundColor: 'white',
+  borderColor: 'orange',
   '&:hover': {
     backgroundColor: 'white',
     borderColor: 'grey',
     color: 'grey',
   },
-  borderColor: 'orange',
+  [theme.breakpoints.down('sm')]: {
+    display: 'none',
+  },
+  [theme.breakpoints.up('web')]: {
+    display: 'block',
+  },
 }));
-
-const Link = styled(NavLink)({
-  color: 'inherit',
-  marginRight: '15px',
+const MobileButtonFilter = styled(Button)(({ theme }) => ({
+  [theme.breakpoints.up('web')]: {
+    display: 'none',
+  },
+}));
+const Link = styled(NavLink)(({ theme }) => ({
+  color: 'orange',
   textDecoration: 'none',
   '&:hover': {
     color: 'grey',
   },
-});
+  [theme.breakpoints.down('sm')]: {
+    marginRight: 'auto',
+  },
+}));
 
-export default function SearchAppBar() {
+const AppToolBar = () => {
   const dispatch = useAppDispatch();
   const search = useAppSelector(selectSearch);
   const user = useAppSelector(selectUser);
@@ -98,9 +116,7 @@ export default function SearchAppBar() {
 
   const onTextFieldChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
-    // const name = e.target.name;
     dispatch(setSearch(value));
-    // setSearch(prev => (value));
   };
 
   const onKeyUpSearch = async () => {
@@ -116,71 +132,35 @@ export default function SearchAppBar() {
         <div className="modal-body">
           <FormForFilter closeFilter={cancelMainFilter} />
         </div>
-        {/*<div className="modal-footer">*/}
-        {/*  <button className="btn btn-danger" onClick={cancelMainFilter}>Cancel</button>*/}
-        {/*</div>*/}
       </MainFilter>
       <Menu show={showMenu} title="Меню" onClose={cancelMenu} getStartInfo={getStartInfo}></Menu>
       <AppBar sx={{ zIndex: 1, backgroundColor: 'white' }}>
-        <Toolbar
-          sx={{ display: 'flex', height: '64px', padding: { xs: '0px 3px 0px 11px', web: '0px 20px 0px 13px' } }}
-        >
-          <Link to={'/'} onClick={getStartInfo} sx={{ color: 'orange', marginRight: { xs: 'auto' } }}>
+        <Toolbar>
+          <Link to={'/'} onClick={getStartInfo}>
             GOOD.KG
           </Link>
-          <Search sx={{ mr: 3, backgroundColor: '#bdbdbd', display: { xs: 'none', web: 'block' } }}>
+          <Search>
             <SearchIconWrapper>
               <SearchIcon />
             </SearchIconWrapper>
             <StyledInputBase onKeyUp={onKeyUpSearch} placeholder="Search…" onChange={onTextFieldChange} />
           </Search>
-          <ColorButton
-            sx={{ display: { xs: 'none', web: 'block' } }}
-            variant="outlined"
-            onClick={() => setShowMainFilter(true)}
-            // sx={{ display: { xs: 'none', web: 'block' } }}
-          >
+          <WebButtonFilter variant="outlined" onClick={() => setShowMainFilter(true)}>
             ФИЛЬТР
-          </ColorButton>
-          <IconButton
-            edge="start"
-            aria-label="open drawer"
-            sx={{
-              ml: 2,
-              color: 'orange',
-              '&:hover': {
-                color: 'grey',
-              },
-              display: { xs: 'none', web: 'block' },
-            }}
-            onClick={() => setShowMenu(true)}
-          >
-            <MenuIcon sx={{ fontSize: 40 }} />
-          </IconButton>
+          </WebButtonFilter>
           {user ? <UserMenu user={user} /> : <AnonymousMenu />}
-          <Box sx={{ display: { xs: 'block', web: 'none' }, marginLeft: '15px', marginRight: '7px' }}>
-            <svg className="icon-filter" onClick={() => setShowMainFilter(true)}>
+          <MobileButtonFilter onClick={() => setShowMainFilter(true)}>
+            <svg className="icon-filter">
               <use xlinkHref="sprite.svg#filter"></use>
             </svg>
-          </Box>
-          <IconButton
-            edge="start"
-            aria-label="open drawer"
-            sx={{
-              ml: 2,
-              color: 'orange',
-              '&:hover': {
-                color: 'grey',
-              },
-              display: { xs: 'block', web: 'none' },
-              margin: { xs: '0px' },
-            }}
-            onClick={() => setShowMenu(true)}
-          >
+          </MobileButtonFilter>
+          <MenuIconButton edge="start" aria-label="open drawer" onClick={() => setShowMenu(true)}>
             <MenuIcon sx={{ fontSize: 40 }} />
-          </IconButton>
+          </MenuIconButton>
         </Toolbar>
       </AppBar>
     </Box>
   );
-}
+};
+
+export default AppToolBar;

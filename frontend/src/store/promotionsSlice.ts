@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import {
+  deletePromotion,
   fetchPromotionById,
   fetchPromotions,
   fetchPromotionsByAdmin,
@@ -7,7 +8,7 @@ import {
   fetchPromotionsByCompanyId,
   fetchPromotionsBySearch,
 } from './promotionsThunks';
-import { Promotion } from '../../types';
+import { Promotion } from '../types';
 import { RootState } from '../app/store';
 
 interface PromotionsState {
@@ -53,8 +54,9 @@ export const PromotionsSlice = createSlice({
       if (action.payload.length === 0) {
         state.hasMorePromotion = false;
       }
-      // state.promotions = [...state.promotions, ...action.payload];
-      Array.prototype.push.apply(state.promotions, action.payload);
+      state.promotions = [...state.promotions, ...action.payload];
+      //Array.prototype.push.apply(state.promotions, action.payload);
+      //state.promotions.push(...action.payload);
       state.pagePromotions++;
     });
     builder.addCase(fetchPromotions.rejected, (state) => {
@@ -68,7 +70,8 @@ export const PromotionsSlice = createSlice({
       if (action.payload.length === 0) {
         state.hasMorePromotion = false;
       }
-      Array.prototype.push.apply(state.promotions, action.payload);
+      state.promotions = [...state.promotions, ...action.payload];
+      //Array.prototype.push.apply(state.promotions, action.payload);
       state.pagePromotions++;
     });
     builder.addCase(fetchPromotionsByAdmin.rejected, (state) => {
@@ -79,7 +82,8 @@ export const PromotionsSlice = createSlice({
     });
     builder.addCase(fetchPromotionsByCategory.fulfilled, (state, action) => {
       state.fetchAllLoading = false;
-      Array.prototype.push.apply(state.promotions, action.payload);
+      state.promotions = [...state.promotions, ...action.payload];
+      //Array.prototype.push.apply(state.promotions, action.payload);
       state.pagePromotionsByCategory++;
       if (action.payload.length === 0) {
         state.hasMorePromotion = false;
@@ -93,7 +97,8 @@ export const PromotionsSlice = createSlice({
     });
     builder.addCase(fetchPromotionsBySearch.fulfilled, (state, action) => {
       state.fetchAllLoading = false;
-      Array.prototype.push.apply(state.promotions, action.payload);
+      state.promotions = [...state.promotions, ...action.payload];
+      //Array.prototype.push.apply(state.promotions, action.payload);
       state.pagePromotionsBySearch++;
       if (action.payload.length === 0) {
         state.hasMorePromotion = false;
@@ -131,6 +136,16 @@ export const PromotionsSlice = createSlice({
     // builder.addCase(addOneNews.rejected, (state) => {
     //   state.addLoading = false;
     // });
+
+    //builder.addCase(deletePromotion.pending, (state, payload) => {
+    //  state.deleteLoading = payload.meta.arg;
+    //});
+    //builder.addCase(deletePromotion.fulfilled, (state) => {
+    //  state.deleteLoading = false;
+    //});
+    //builder.addCase(deletePromotion.rejected, (state) => {
+    //  state.deleteLoading = false;
+    //});
   },
 });
 

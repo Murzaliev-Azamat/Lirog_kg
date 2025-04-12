@@ -3,6 +3,7 @@ import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { selectCategories } from '../../store/categoriesSlice';
 import { NavLink } from 'react-router-dom';
 import { deleteCategory, fetchCategories } from '../../store/categoriesThunks';
+import './AdminCategory.css';
 
 const AdminCategory = () => {
   const dispatch = useAppDispatch();
@@ -19,29 +20,20 @@ const AdminCategory = () => {
       <NavLink to={'/add-category'} type="button" className="btn btn-primary btn-sm">
         Добавить категорию
       </NavLink>
-      <div style={{ display: 'flex', marginTop: '20px' }}>
-        <h3 style={{ marginRight: '261px', fontSize: '20px' }}>Название категории</h3>
-        <h3 style={{ fontSize: '20px' }}>Родительская категория</h3>
+      <div className="h4-block-category-admin">
+        <h4>Название категории</h4>
+        <h4>Родительская категория</h4>
       </div>
       {categories &&
         categories.map((category) => {
           const parentTitle = category.parent ? category.parent.title : '-';
           return (
-            <div
-              key={category._id}
-              style={{
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-                marginBottom: '5px',
-                marginTop: '5px',
-              }}
-            >
+            <div key={category._id} className="p-block-category-admin">
               <div style={{ width: '200px' }}>
-                <p style={{ margin: '0' }}>{category.title}</p>
+                <p>{category.title}</p>
               </div>
               <div style={{ width: '300px' }}>
-                <p style={{ margin: '0' }}>{parentTitle}</p>
+                <p>{parentTitle}</p>
               </div>
               <button onClick={() => removeCategory(category._id)} className="btn btn-danger btn-sm">
                 delete

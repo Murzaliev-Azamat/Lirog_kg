@@ -1,24 +1,8 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axiosApi from '../../axiosApi';
 import { isAxiosError } from 'axios';
-import { GlobalError, LoginMutation, RegisterMutation, RegisterResponse, User, ValidationError } from '../../../types';
+import { GlobalError, LoginMutation, RegisterMutation, RegisterResponse, User, ValidationError } from '../../types';
 import { unsetUser } from './usersSlise';
-
-// export const addAlbum = createAsyncThunk<void, AlbumApi>(
-// 'albums/addAlbum', async (album) => {
-//   const formData = new FormData();
-//
-//   const keys = Object.keys(album) as (keyof AlbumApi)[];
-//   keys.forEach((key) => {
-//     const value = album[key];
-//
-//     if (value !== null) {
-//       formData.append(key, value);
-//     }
-//   });
-//
-//   await axiosApi.post<AlbumApi>('/albums', formData);
-// });
 
 export const register = createAsyncThunk<User, RegisterMutation, { rejectValue: ValidationError }>(
   'users/register',

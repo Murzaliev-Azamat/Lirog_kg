@@ -15,7 +15,6 @@ import SearchIcon from '@mui/icons-material/Search';
 import { styled } from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
 import { Box } from '@mui/material';
-import { clearAllCompanies } from '../../store/companiesSlice';
 
 const Search = styled('div')(({ theme }) => ({
   backgroundColor: 'black',
@@ -33,7 +32,6 @@ const Search = styled('div')(({ theme }) => ({
     width: 'auto',
   },
 }));
-
 const SearchIconWrapper = styled('div')(({ theme }) => ({
   color: 'white',
   padding: theme.spacing(0, 2),
@@ -44,7 +42,6 @@ const SearchIconWrapper = styled('div')(({ theme }) => ({
   alignItems: 'center',
   justifyContent: 'center',
 }));
-
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
   width: '100%',
   color: 'white',
@@ -64,9 +61,6 @@ const Promotions = () => {
   const filterSubcategory = useAppSelector(selectFilterSubCategory);
   const filterIsBirthday = useAppSelector(selectFilterIsBirthday);
   const search = useAppSelector(selectSearch);
-
-  // console.log(search);
-  console.log(filterIsBirthday);
 
   const loadMore = async () => {
     if (fetchAllLoading) {
@@ -119,7 +113,6 @@ const Promotions = () => {
         // initialLoad={true}
         // useWindow={true}
       >
-        {/*className="row p-2 gx-0 justify-content-evenly justify-content-sm-start"*/}
         <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-evenly' }}>
           {promotions.map((promotion) => (
             <CardForPromotion

@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../app/store';
-import { Category } from '../../types';
+import { Category } from '../types';
 import { fetchCategories } from './categoriesThunks';
 
 interface CategoriesState {

@@ -1,0 +1,14 @@
+.h4-block-category-admin {
+  display: flex;
+  justify-content: space-between;
+  max-width: 700px;
+  margin-top: 20px;
+}
+
+.p-block-category-admin {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 5px;
+  margin-top: 5px;
+}
